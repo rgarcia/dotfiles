@@ -5,7 +5,11 @@ export ZSH="$HOME/.oh-my-zsh"
 ZSH_THEME="crunch"
 
 # fzf (must be set before oh-my-zsh loads)
+{{- if eq .chezmoi.os "darwin" }}
+export FZF_BASE=/opt/homebrew/opt/fzf
+{{- else }}
 export FZF_BASE=/usr/share/doc/fzf/examples
+{{- end }}
 
 # Plugins
 plugins=(git docker kubectl fzf zsh-autosuggestions zsh-syntax-highlighting)
