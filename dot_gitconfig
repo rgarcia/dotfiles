@@ -1,0 +1,7 @@
+[url "git@github.com:"]
+	insteadOf = https://github.com/
+[user]
+	email = raf@kernel.sh
+	name = Rafael Garcia
+[init]
+	defaultBranch = main

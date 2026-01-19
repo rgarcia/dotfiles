@@ -1,0 +1,5 @@
+[".claude/skills/skill-linter"]
+    type = "archive"
+    url = "https://github.com/rgarcia/skills/archive/main.tar.gz"
+    stripComponents = 3
+    include = ["*/skills/skill-linter/**"]
