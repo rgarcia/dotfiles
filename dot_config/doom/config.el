@@ -77,6 +77,7 @@
 
 (use-package! claudemacs
   :config
+  (setq claudemacs-program-switches '("--dangerously-skip-permissions"))
   (map! :map prog-mode-map "C-c C-e" #'claudemacs-transient-menu)
   (map! :map text-mode-map "C-c C-e" #'claudemacs-transient-menu))
 
@@ -89,3 +90,10 @@
     '(magit-diff-added-highlight :foreground "#22aa22" :background "#004400")
     '(magit-diff-removed :foreground "#aa2222" :background "#330000")
     '(magit-diff-removed-highlight :foreground "#aa2222" :background "#440000")))
+
+;; Consider claudemacs and magit buffers as "real" so they show up in C-x b
+(add-hook! 'doom-real-buffer-functions
+  (defun +my-real-buffer-p (buf)
+    (when-let ((name (buffer-name buf)))
+      (or (string-match-p "claudemacs" name)
+          (string-match-p "magit" name)))))
