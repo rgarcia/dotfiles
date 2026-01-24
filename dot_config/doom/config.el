@@ -78,7 +78,13 @@
 (use-package! claudemacs
   :config
   (setq claudemacs-program-switches '("--dangerously-skip-permissions"))
-  (map! "C-c C-e" #'claudemacs-transient-menu))
+  (defun my/claudemacs-or-eat-edit ()
+    "Call claudemacs menu unless in eat-mode, then switch to emacs mode."
+    (interactive)
+    (if (derived-mode-p 'eat-mode)
+        (eat-emacs-mode)
+      (claudemacs-transient-menu)))
+  (map! "C-c C-e" #'my/claudemacs-or-eat-edit))
 
 (after! eat
   (setq eat-term-scrollback-size 400000))
