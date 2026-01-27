@@ -77,6 +77,34 @@
 
 (use-package! claudemacs
   :config
+  ;; Set agent (Cursor CLI) as default and first in registry
+  (setq claudemacs-default-tool 'agent)
+  (setq claudemacs-tool-registry
+        '((agent :program "agent" :switches ("--approve-mcps"))
+          (claude :program "claude" :switches nil)
+          (codex :program "codex" :switches nil)
+          (gemini :program "gemini-cli" :switches nil)))
+
+  ;; Override resume flag to handle agent's --continue flag
+  (defun my/claudemacs-get-resume-flag (orig-fn tool)
+    "Advice to return correct resume flag for agent tool."
+    (pcase tool
+      ('agent "--continue")
+      (_ (funcall orig-fn tool))))
+  (advice-add 'claudemacs--get-resume-flag :around #'my/claudemacs-get-resume-flag)
+
+  ;; Override argument translation to handle agent's --force flag
+  (defun my/claudemacs-translate-args-for-tool (orig-fn tool args)
+    "Advice to translate --dangerous-skip-permissions to --force for agent."
+    (if (eq tool 'agent)
+        (mapcar (lambda (arg)
+                  (if (string= arg "--dangerous-skip-permissions")
+                      "--force"
+                    arg))
+                args)
+      (funcall orig-fn tool args)))
+  (advice-add 'claudemacs--translate-args-for-tool :around #'my/claudemacs-translate-args-for-tool)
+
   (setq claudemacs-program-switches '("--dangerously-skip-permissions"))
   (defun my/claudemacs-or-eat-edit ()
     "Call claudemacs menu unless in eat-mode, then switch to emacs mode."
