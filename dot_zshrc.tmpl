@@ -64,8 +64,8 @@ eval "$(try init ~/code/tries)"
 # API Keys
 # -----------------
 export KERNEL_API_KEY={{ onepasswordRead "op://sa/dev/KERNEL_API_KEY" | quote }}
-export OPENAI_API_KEY={{ onepasswordRead "op://sa/dev/OPENAI_API_KEY" | quote }}
-export GOOGLE_API_KEY={{ onepasswordRead "op://sa/dev/GOOGLE_API_KEY" | quote }}
+export OPENAI_API_KEY_KERNEL={{ onepasswordRead "op://sa/dev/OPENAI_API_KEY" | quote }}
+export GOOGLE_API_KEY_KERNEL={{ onepasswordRead "op://sa/dev/GOOGLE_API_KEY" | quote }}
 {{- if ne .chezmoi.os "darwin" }}
 export OP_SERVICE_ACCOUNT_TOKEN={{ onepasswordRead "op://sa/dev/OP_SERVICE_ACCOUNT_TOKEN" | quote }}
 {{- end }}
