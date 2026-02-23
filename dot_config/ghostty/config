@@ -1,0 +1,16 @@
+theme = Gruvbox Dark
+font-family = "TX-02-Regular"
+window-title-font-family = "TX-02-Regular"
+font-size = 14
+macos-titlebar-style = tabs
+window-save-state = always
+keybind = cmd+right=text:\x05
+keybind = cmd+left=text:\x01
+keybind = alt+left=esc:b
+keybind = alt+right=esc:f
+keybind = cmd+delete=text:\x0b
+keybind = cmd+backspace=text:\x15
+keybind = opt+delete=esc:d
+shell-integration-features = sudo
+background-blur = macos-glass-regular
+keybind = shift+enter=text:\x1b\r
