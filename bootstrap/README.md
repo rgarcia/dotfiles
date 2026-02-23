@@ -112,6 +112,9 @@ SSH to <old-user>@<old-host> and:
 - copy remote ~/.cursor/mcp.json to local ~/.cursor/mcp.json (wholesale)
 - copy remote ~/.claude.json to a temp file
 - merge only the top-level mcpServers key from remote ~/.claude.json into local ~/.claude.json
+- find Berkeley Mono fonts on the old Mac (look for TX-02-* files in ~/Library/Fonts and /Library/Fonts)
+- copy any TX-02-* font files to local ~/Library/Fonts
+- verify the copied font files exist locally
 - validate both local JSON files are still valid
 - clean up any temp files
 ```
