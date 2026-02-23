@@ -94,3 +94,26 @@ Then log in with:
 ```sh
 agent
 ```
+
+## 10) (Optional) Copy MCP config from an existing computer via `agent`
+
+Once `agent` is available on the new machine, you can ask it to migrate MCP config from your old machine over SSH.
+
+1. Open a terminal on the new machine and run:
+
+```sh
+agent
+```
+
+2. Paste a prompt like this (replace placeholders):
+
+```text
+SSH to <old-user>@<old-host> and:
+- copy remote ~/.cursor/mcp.json to local ~/.cursor/mcp.json (wholesale)
+- copy remote ~/.claude.json to a temp file
+- merge only the top-level mcpServers key from remote ~/.claude.json into local ~/.claude.json
+- validate both local JSON files are still valid
+- clean up any temp files
+```
+
+3. Review the result and restart tools if needed (Cursor/Claude) so new MCP server settings are picked up.
