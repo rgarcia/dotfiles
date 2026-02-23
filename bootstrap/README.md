@@ -37,7 +37,15 @@ Open a new terminal, then run:
 brew bundle --file=./Brewfile
 ```
 
-## 5) Launch apps that need manual setup
+## 5) Install `try` (GitHub release)
+
+Install `try` (latest release that currently includes macOS builds is `v1.5.0`):
+
+```sh
+mkdir -p "$HOME/.local/bin" && tmpdir="$(mktemp -d)" && arch="$(uname -m)" && target="$([ "$arch" = "arm64" ] && echo aarch64 || echo x86_64)" && curl -fsSL "https://github.com/tobi/try-cli/releases/download/v1.5.0/try-darwin-${target}.tar.gz" | tar -xz -C "$tmpdir" && install -m 0755 "$tmpdir/try" "$HOME/.local/bin/try" && rm -rf "$tmpdir"
+```
+
+## 6) Launch apps that need manual setup
 
 - `1Password`: sign in, then enable CLI integration in Developer settings.
 - `Raycast`: sign in, disable Spotlight shortcut, and switch Raycast to `Cmd+Space`.
@@ -52,7 +60,7 @@ brew bundle --file=./Brewfile
 2. Uncheck **Show Spotlight search**.
 3. Configure Raycast to use `Cmd+Space`.
 
-## 6) Set up chezmoi
+## 7) Set up chezmoi
 
 ```sh
 chezmoi init git@github.com:rgarcia/dotfiles
@@ -64,14 +72,14 @@ Look up the `OP_*` token in the "sa" vault, then initialize with:
 OP_SERVICE_ACCOUNT_TOKEN=... chezmoi init
 ```
 
-## 7) Install Doom Emacs
+## 8) Install Doom Emacs
 
 ```sh
 git clone --depth 1 https://github.com/doomemacs/doomemacs ~/.config/emacs
 ~/.config/emacs/bin/doom install
 ```
 
-## 8) Install Claude Code
+## 9) Install Claude Code
 
 ```sh
 curl -fsSL https://claude.ai/install.sh | bash
@@ -83,7 +91,7 @@ Then log in with:
 claude
 ```
 
-## 9) Install Cursor CLI
+## 10) Install Cursor CLI
 
 ```sh
 curl https://cursor.com/install -fsS | bash
@@ -95,7 +103,7 @@ Then log in with:
 agent
 ```
 
-## 10) (Optional) Copy MCP config from an existing computer via `agent`
+## 11) (Optional) Copy MCP config from an existing computer via `agent`
 
 Once `agent` is available on the new machine, you can ask it to migrate MCP config from your old machine over SSH.
 
