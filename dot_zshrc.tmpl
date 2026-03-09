@@ -93,6 +93,17 @@ alias ai='opencode run "generate a bash command for $*"'
 alias claude='claude --dangerously-skip-permissions'
 alias agent='agent --approve-mcps --yolo'
 alias refresh_skills="npx skills add git@github.com:kernel/internal.git --all --agent cursor claude-code --global --yes"
+gws-profile() {
+  local profile="$1"
+  shift
+  if [[ -z "$profile" ]]; then
+    echo "usage: gws-profile <profile> [gws args...]" >&2
+    return 1
+  fi
+  GOOGLE_WORKSPACE_CLI_CONFIG_DIR="$HOME/.config/gws-$profile" gws "$@"
+}
+alias gws-personal='GOOGLE_WORKSPACE_CLI_CONFIG_DIR="$HOME/.config/gws-personal" gws'
+alias gws-work='GOOGLE_WORKSPACE_CLI_CONFIG_DIR="$HOME/.config/gws-work" gws'
 
 # -----------------
 # cdc - quick cd to ~/code/kernel
