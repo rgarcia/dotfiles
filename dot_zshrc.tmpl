@@ -61,6 +61,10 @@ case ":$PATH:" in
   *) export PATH="$PNPM_HOME:$PATH" ;;
 esac
 
+# tmux temp directory
+export TMUX_TMPDIR="$HOME/.tmux"
+mkdir -p "$TMUX_TMPDIR"
+
 # -----------------
 # Sourced files
 # -----------------
@@ -79,6 +83,7 @@ fi
 export KERNEL_API_KEY={{ onepasswordRead "op://sa/dev/KERNEL_API_KEY" | quote }}
 export OPENAI_API_KEY_KERNEL={{ onepasswordRead "op://sa/dev/OPENAI_API_KEY" | quote }}
 export GOOGLE_API_KEY_KERNEL={{ onepasswordRead "op://sa/dev/GOOGLE_API_KEY" | quote }}
+export OPENROUTER_API_KEY={{ onepasswordRead "op://sa/dev/OPENROUTER_API_KEY" | quote }}
 {{- if ne .chezmoi.os "darwin" }}
 export OP_SERVICE_ACCOUNT_TOKEN={{ onepasswordRead "op://sa/dev/OP_SERVICE_ACCOUNT_TOKEN" | quote }}
 {{- end }}
