@@ -64,10 +64,6 @@ case ":$PATH:" in
   *) export PATH="$PNPM_HOME:$PATH" ;;
 esac
 
-# tmux temp directory
-export TMUX_TMPDIR="$HOME/.tmux"
-mkdir -p "$TMUX_TMPDIR"
-
 # -----------------
 # Sourced files
 # -----------------
@@ -112,6 +108,7 @@ gws-profile() {
 }
 alias gws-personal='GOOGLE_WORKSPACE_CLI_CONFIG_DIR="$HOME/.config/gws-personal" gws'
 alias gws-work='GOOGLE_WORKSPACE_CLI_CONFIG_DIR="$HOME/.config/gws-work" gws'
+alias gws-work-legacy='GOOGLE_WORKSPACE_CLI_CONFIG_DIR="$HOME/.config/gws-work-legacy" gws'
 
 # -----------------
 # cdc - quick cd to ~/code/kernel
