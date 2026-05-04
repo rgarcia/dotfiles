@@ -96,6 +96,7 @@ alias l='ls -CF'
 alias ai='opencode run "generate a bash command for $*"'
 alias claude='claude --dangerously-skip-permissions'
 alias agent='agent --approve-mcps --yolo'
+alias codex='codex --dangerously-bypass-approvals-and-sandbox --enable goals'
 alias refresh_skills="npx skills add git@github.com:kernel/internal.git --all --agent cursor claude-code --global --yes"
 gws-profile() {
   local profile="$1"
