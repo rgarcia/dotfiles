@@ -98,6 +98,46 @@ alias claude='claude --dangerously-skip-permissions'
 alias agent='agent --approve-mcps --yolo'
 alias codex='codex --dangerously-bypass-approvals-and-sandbox --enable goals'
 alias refresh_skills="npx skills add git@github.com:kernel/internal.git --all --agent cursor claude-code --global --yes"
+
+cclaude() {
+  if (( $# == 0 )); then
+    echo "usage: cclaude <model> [claude args...]" >&2
+    return 2
+  fi
+
+  local model="$1"
+  shift
+  local proxy_config="${CLIPROXY_CONFIG:-$HOME/cliproxyapi/config.yaml}"
+  local proxy_key
+  proxy_key=$(sed -n '/^api-keys:/,/^[^[:space:]]/ s/^[[:space:]]*-[[:space:]]*"\(.*\)"[[:space:]]*$/\1/p' "$proxy_config" | head -n 1)
+
+  if [[ -z "$proxy_key" ]]; then
+    echo "could not read a CLIProxyAPI key from $proxy_config" >&2
+    return 1
+  fi
+
+  ANTHROPIC_BASE_URL="${CLIPROXY_BASE_URL:-http://127.0.0.1:8317}" \
+    ANTHROPIC_API_KEY="$proxy_key" \
+    command claude --dangerously-skip-permissions --model "$model" "$@"
+}
+
+cliproxy-models() {
+  local proxy_config="${CLIPROXY_CONFIG:-$HOME/cliproxyapi/config.yaml}"
+  local proxy_key
+  proxy_key=$(sed -n '/^api-keys:/,/^[^[:space:]]/ s/^[[:space:]]*-[[:space:]]*"\(.*\)"[[:space:]]*$/\1/p' "$proxy_config" | head -n 1)
+
+  if [[ -z "$proxy_key" ]]; then
+    echo "could not read a CLIProxyAPI key from $proxy_config" >&2
+    return 1
+  fi
+
+  curl -fsS \
+    -H "Authorization: Bearer $proxy_key" \
+    "${CLIPROXY_BASE_URL:-http://127.0.0.1:8317}/v1/models" |
+    jq -r '.data[].id' |
+    sort -u
+}
+
 gws-profile() {
   local profile="$1"
   shift
