@@ -49,10 +49,9 @@ export PATH="$HOME/depot_tools:$PATH"
 export PATH="$HOME/.local/bin:$PATH"
 
 # npm global packages
-export NPM_CONFIG_PREFIX="$HOME/.npm-global"
-export npm_config_prefix="$NPM_CONFIG_PREFIX"
-mkdir -p "$NPM_CONFIG_PREFIX"
-export PATH="$NPM_CONFIG_PREFIX/bin:$PATH"
+unset NPM_CONFIG_PREFIX npm_config_prefix
+mkdir -p "$HOME/.npm-global"
+export PATH="$HOME/.npm-global/bin:$PATH"
 
 # opencode
 export PATH="$HOME/.opencode/bin:$PATH"
@@ -179,3 +178,10 @@ if command -v brew >/dev/null 2>&1; then
     source "$_brew_prefix/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh"
   fi
 fi
+
+# add Pulumi to the PATH
+export PATH=$PATH:/home/rgarcia/.pulumi/bin
+
+# >>> Codex installer >>>
+export PATH="/home/rgarcia/.local/bin:$PATH"
+# <<< Codex installer <<<
