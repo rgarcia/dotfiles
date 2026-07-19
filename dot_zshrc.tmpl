@@ -49,7 +49,9 @@ export PATH="$HOME/depot_tools:$PATH"
 export PATH="$HOME/.local/bin:$PATH"
 
 # npm global packages
-unset NPM_CONFIG_PREFIX npm_config_prefix
+# Set the prefix (not just PATH) so `npm install -g` writes here instead of
+# falling back to /usr (dirname of /usr/bin/node), which isn't user-writable.
+export npm_config_prefix="$HOME/.npm-global"
 mkdir -p "$HOME/.npm-global"
 export PATH="$HOME/.npm-global/bin:$PATH"
 
